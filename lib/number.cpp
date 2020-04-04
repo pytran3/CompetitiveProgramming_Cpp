@@ -47,4 +47,8 @@ template <ll Modulus> struct ModInt {
     constexpr  ModInt operator-() noexcept {
         return ModInt(-a);
     }
+    friend ostream& operator<<(ostream& os, const ModInt& m){
+        os << m.a;
+        retrun os;
+    }
 };
