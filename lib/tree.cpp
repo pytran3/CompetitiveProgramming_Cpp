@@ -289,3 +289,25 @@ template<class VAL> struct RBST {
     }
 };
 
+template<typename T> struct BIT {
+    vector<T> bit;
+    int n;
+
+    BIT(const int size) : bit(size+1), n(size) {}
+
+    void add(T value, int index) noexcept {
+      index++;  // to 1-indexed
+      for (int x = index; x <= n; x += x & -x) bit[x] += value;
+    }
+
+    constexpr T sum(int lft, int rgt) noexcept {
+      return sum(rgt) - sum(lft-1);
+    }
+
+    constexpr T sum(int rgt) noexcept {
+      //rgt++;rgt--;// to 1-indexed and open section
+      T ret = 0;
+      for (int x = rgt; x > 0; x -= x & -x) ret += bit[x];
+      return ret;
+    }
+};
