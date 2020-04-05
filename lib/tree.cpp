@@ -301,7 +301,7 @@ template<typename T> struct BIT {
     }
 
     constexpr T sum(int lft, int rgt) noexcept {
-      return sum(rgt) - sum(lft-1);
+      return sum(rgt) - sum(lft);
     }
 
     constexpr T sum(int rgt) noexcept {
