@@ -49,6 +49,6 @@ template <ll Modulus> struct ModInt {
     }
     friend ostream& operator<<(ostream& os, const ModInt& m){
         os << m.a;
-        retrun os;
+        return os;
     }
 };
