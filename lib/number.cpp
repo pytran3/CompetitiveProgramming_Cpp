@@ -1,3 +1,5 @@
+using ll = long long;
+
 template <ll Modulus> struct ModInt {
     ll a;
     constexpr ModInt(const ll x = 0) noexcept  : a((x%mod+mod) % mod){}
