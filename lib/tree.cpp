@@ -295,7 +295,7 @@ template<typename T> struct BIT {
 
     BIT(const int size) : bit(size+1), n(size) {}
 
-    void add(T value, int index) noexcept {
+    void add(int index, T value) noexcept {
       index++;  // to 1-indexed
       for (int x = index; x <= n; x += x & -x) bit[x] += value;
     }
@@ -311,3 +311,23 @@ template<typename T> struct BIT {
       return ret;
     }
 };
+
+template<typename T> struct RangeAddBIT {
+    BIT<T> p, q;
+    RangeAddBIT(const int size) :p(size+1),q(size+1){}
+    void add(int lft, int rgt, T w) {
+      p.add(lft, -w * lft);
+      p.add(rgt, w * rgt);
+      q.add(lft, w);
+      q.add(rgt, -w);
+    }
+
+    T sum(int rgt) {
+      return p.sum(rgt) + q.sum(rgt) * rgt;
+    }
+
+    T sum(int lft, int rgt) {
+      return sum(rgt) - sum(lft);
+    }
+};
+
