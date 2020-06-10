@@ -54,3 +54,15 @@ template <ll Modulus> struct ModInt {
         return os;
     }
 };
+
+map<ll, int> primeFactorization(ll a) {
+  map<ll, int> mp;
+  for(ll i = 2; i * i <= a; i++) {
+    while(a % i == 0) {
+      mp[i]++;
+      a /= i;
+    }
+  }
+  if(a > 1) mp[a]++;
+  return mp;
+}
