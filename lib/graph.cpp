@@ -31,3 +31,58 @@ public:
       reverse(all(sorted));
     }
 };
+
+struct DoublingLCA {
+    int root;
+    vector<vector<int>> children;
+    vector<vector<int>> d_parents;
+    vector<int> depth;
+
+    DoublingLCA(const vector<vector<int>> &children, const int root) noexcept: root(root), children(children) {}
+
+    void build() {
+      vector<int> path(1, root);
+      d_parents.resize(31, vector<int>(sz(children), -1));
+      depth.resize(sz(children), inf);
+      dfs(path);
+    }
+
+    int get_parent(int node, int length) {
+      for(int i = 0; length; i++) {
+        if(length & 1<<i) {
+          length -= 1<<i;
+          node = d_parents[i][node];
+        }
+      }
+      return node;
+    }
+
+    int lca(int n1, int n2) {
+      if(depth[n1] < depth[n2]) swap(n1, n2);
+      n1 = get_parent(n1, depth[n1] - depth[n2]);
+      if(n1 == n2) return n1;
+      REP_REV(i, 31) {
+        if(1<<i > depth[n1]) continue;
+        if (d_parents[i][n1] != d_parents[i][n2] ) {
+          n1 = d_parents[i][n1];
+          n2 = d_parents[i][n2];
+        }
+      }
+      return d_parents[0][n1];
+    }
+
+private:
+    void dfs(vector<int> &path) {
+      int cur = path[sz(path)-1];
+      depth[cur] = path.size()-1;
+      for(int i = 1, j = 0; i < sz(path);i*=2,j++) {
+        d_parents[j][cur] = path[sz(path)-1-i];
+      }
+      for(int child: children[cur]) {
+        if(depth[child] != inf) continue;
+        path.push_back(child);
+        dfs(path);
+        path.erase(--path.end());
+      }
+    }
+};
