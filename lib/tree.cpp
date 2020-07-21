@@ -331,3 +331,34 @@ template<typename T> struct RangeAddBIT {
     }
 };
 
+template<typename T> struct SegmentTree {
+    int n;
+    T e;
+    vector<T> vec;
+    SegmentTree(const int size, const T e) : vec(2 * size - 1, e), n(size), e(e) {}
+
+    void update(int i, T value) {
+      i += n - 1;
+      vec[i] = value;
+      while(i > 0) {
+        i = (i - 1) / 2;
+        vec[i] = f(vec[2 * i + 1], vec[2 * i + 2]);
+      }
+    }
+
+    T query(int a, int b) {
+      T vl = e;
+      T vr = e;
+      for(int l=a+n,r=b+n;l<r;l>>=1,r>>=1) {
+        if(l&1) vl=f(vl,vec[(l++)-1]);
+        if(r&1) vr=f(vec[(--r)-1],vr);
+      }
+      return f(vl,vr);
+    }
+
+
+private:
+    T f(T x, T y) {
+      return min(x, y);
+    }
+};
