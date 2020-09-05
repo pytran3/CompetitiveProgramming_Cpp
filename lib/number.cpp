@@ -66,3 +66,17 @@ map<ll, int> primeFactorization(ll a) {
   if(a > 1) mp[a]++;
   return mp;
 }
+
+vector<ll> findDivisor(ll x) {
+  vector<ll> a, b;
+  ll y = 1;
+  for(y = 1; y * y < x; y++) {
+    if(x%y == 0) {
+      a.push_back(y);
+      b.push_back(x/y);
+    }
+  }
+  if(x % y == 0) a.push_back(y);
+  a.insert(a.end(), b.rbegin(), b.rend());
+  return a;
+}
