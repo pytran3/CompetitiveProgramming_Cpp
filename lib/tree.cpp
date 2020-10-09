@@ -28,11 +28,6 @@ struct UnionFind {
       swap(next[x], next[y]);
     }
 
-private:
-    void unite_list(int x, int y) {
-
-    }
-
     bool same(int x, int y) {
       int rx = root(x);
       int ry = root(y);
