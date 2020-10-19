@@ -3,6 +3,8 @@
 using namespace std;
 using ll = long long;
 
+#define rep(i, n) for (ll i = 0; i < (n); ++i)
+
 using Pair = pair<ll, ll>;
 
 struct RollingHash {
