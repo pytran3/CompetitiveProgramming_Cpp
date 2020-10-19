@@ -1,4 +1,9 @@
+#include <vector>
+#include <map>
+
+using namespace std;
 using ll = long long;
+const ll mod = 1000000007;
 
 template <ll Modulus> struct ModInt {
     ll a;

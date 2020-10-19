@@ -1,3 +1,6 @@
+#include <vector>
+
+using namespace std;
 using ll = long long;
 
 using Pair = pair<ll, ll>;
@@ -13,7 +16,7 @@ struct RollingHash {
       hash2.assign(n+1, 0);
       power1.assign(n+1, 1);
       power2.assign(n+1, 1);
-      REP(i, n) {
+      rep(i, n) {
         hash1[i+1] = (hash1[i] * base1 + s[i]) % mod1;
         hash2[i+1] = (hash2[i] * base2 + s[i]) % mod2;
         power1[i+1] = (power1[i] * base1) % mod1;
