@@ -341,7 +341,7 @@ template<typename T> struct SegmentTree {
       }
     }
 
-    T query(int a, int b) {
+    const T query(int a, int b) {
       T vl = e;
       T vr = e;
       for(int l=a+n,r=b+n;l<r;l>>=1,r>>=1) {
@@ -353,7 +353,7 @@ template<typename T> struct SegmentTree {
 
 
 private:
-    T f(T x, T y) {
+    const T f(T x, T y) {
       return min(x, y);
     }
 };
