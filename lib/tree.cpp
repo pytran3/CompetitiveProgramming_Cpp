@@ -330,7 +330,11 @@ template<typename T> struct SegmentTree {
     int n;
     T e;
     vector<T> vec;
-    SegmentTree(const int size, const T e) : vec(2 * size - 1, e), n(size), e(e) {}
+    SegmentTree(const int size, const T e) : e(e) {
+      n = 1;
+      while ( n  < size) n *= 2;
+      vec = vector<T>(2 * n - 1, e);
+    }
 
     void update(int i, T value) {
       i += n - 1;
@@ -354,6 +358,6 @@ template<typename T> struct SegmentTree {
 
 private:
     const T f(T x, T y) {
-      return min(x, y);
+      return x ^ y;
     }
 };
