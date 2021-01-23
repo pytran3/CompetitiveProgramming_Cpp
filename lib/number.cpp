@@ -85,3 +85,18 @@ vector<ll> findDivisor(ll x) {
   a.insert(a.end(), b.rbegin(), b.rend());
   return a;
 }
+
+constexpr ll modinv(const ll& a, const ll Modulus) {
+  // 拡張ユークリッドの互除法で逆元を求める
+  ll x = 1, u = 0, s = a, t = Modulus;
+  ll k = 0, tmp = 0;
+  while (t) {
+    k = s / t, s -= k * t;
+    tmp = s, s = t, t = tmp;
+    x -= k * u;
+    tmp = x, x = u, u = tmp;
+  }
+  x %= Modulus;
+  if (x < 0) x += Modulus;
+  return x;
+}
