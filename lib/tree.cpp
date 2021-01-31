@@ -327,10 +327,12 @@ template<typename T> struct RangeAddBIT {
 };
 
 template<typename T> struct SegmentTree {
+    typedef function<T(T,T)> F;
     int n;
     T e;
+    F f;
     vector<T> vec;
-    SegmentTree(const int size, const T e) : e(e) {
+    SegmentTree(const int size, const T e, const F f) : e(e), f(f) {
       n = 1;
       while ( n  < size) n *= 2;
       vec = vector<T>(2 * n - 1, e);
@@ -353,11 +355,5 @@ template<typename T> struct SegmentTree {
         if(r&1) vr=f(vec[(--r)-1],vr);
       }
       return f(vl,vr);
-    }
-
-
-private:
-    const T f(T x, T y) {
-      return x ^ y;
     }
 };
