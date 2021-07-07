@@ -140,6 +140,18 @@ struct Flow {
 
     Flow() {};
 
+    int solve(FlowGraph &g, int s, int t, int f) {
+      int ret = 0;
+      for(;;) {
+        seen.assign(sz(g), 0);
+        int cap = flow(g, s, t, f);
+        if(cap == 0) break;
+        ret += cap;
+      }
+      return ret;
+    }
+
+private:
     int flow(FlowGraph &g, int v, int t, int f) {
       if(v == t) return f;
       seen[v] = 1;
@@ -154,16 +166,5 @@ struct Flow {
         return cap;
       }
       return 0;
-    }
-
-    int solve(FlowGraph &g, int s, int t, int f) {
-      int ret = 0;
-      for(;;) {
-        seen.assign(sz(g), 0);
-        int cap = flow(g, s, t, f);
-        if(cap == 0) break;
-        ret += cap;
-      }
-      return ret;
     }
 };
