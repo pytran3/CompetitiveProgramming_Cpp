@@ -12,6 +12,39 @@ const int inf = 1e9;
 #define sz(x) ll(x.size())
 
 
+struct UnionFind {
+    vector<int> par;
+    vector<int> next;
+
+    UnionFind(int n) : par(n, -1), next(n) {iota(all(next), 0);}
+
+    int root(int x) {
+      if (par[x] < 0)
+        return x;
+      return par[x] = root(par[x]);
+    }
+
+    void unite(int x, int y) {
+      x = root(x);
+      y = root(y);
+      if (x == y)
+        return;
+      if (par[x] > par[y])
+        swap(x, y);
+      par[x] += par[y];
+      par[y] = x;
+      swap(next[x], next[y]);
+    }
+
+    bool same(int x, int y) {
+      int rx = root(x);
+      int ry = root(y);
+      return rx == ry;
+    }
+    int size(int x) { return -par[root(x)]; }
+};
+
+
 struct DAG {
 private:
     vector<int> visited;
