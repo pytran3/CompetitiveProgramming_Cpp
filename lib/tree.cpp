@@ -325,3 +325,40 @@ template<typename T> struct SegmentTree {
       return f(vl,vr);
     }
 };
+
+struct KthCollection {
+private:
+    BIT<int> bit;
+    int size;
+public:
+    int cnt = 0;
+
+    KthCollection(const int size)  : bit(size), size(size){}
+
+    void add(const int x) {
+      cnt++;
+      bit.add(x, 1);
+    }
+
+    void erase(const int x) {
+      cnt--;
+      bit.add(x, -1);
+    }
+
+    int kth(const int c) {
+      if(cnt < c) return size;
+      int lft = -1;
+      int rgt = size;
+      while(rgt -lft > 1) {
+        int mid = (lft + rgt) / 2;
+        int s = bit.sum(mid+1);
+        if(s <= c) {
+          lft = mid;
+        }
+        else {
+          rgt = mid;
+        }
+      }
+      return rgt;
+    }
+};
