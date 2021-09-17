@@ -7,8 +7,8 @@
 template<typename T>
 vector<vector<T>> matrix_multiplication(const vector<vector<T>> &a, const vector<vector<T>> &b) {
   const int n = sz(a), m = sz(b[0]);
-  vector ret(n, vector<T>(n));
-  rep(i, n) rep(j, n) rep(k, n) ret[i][j] += a[i][k] * b[k][j];
+  vector ret(n, vector<T>(m));
+  rep(i, n) rep(j, m) rep(k, n) ret[i][j] += a[i][k] * b[k][j];
   return ret;
 }
 
