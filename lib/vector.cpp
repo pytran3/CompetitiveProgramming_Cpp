@@ -6,7 +6,8 @@ struct CompressionVector {
     vector<T> v;
     CompressionVector(const vector<T> & v) noexcept {
       this->v = v;
-      sort(all(this->v)); this->v.erase(unique(all(this->v)), this->v.end());
+      sort(all(this->v));
+      this->v.erase(unique(all(this->v)), this->v.end());
     }
 
     int index_of(T x) {
