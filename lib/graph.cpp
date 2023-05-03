@@ -201,3 +201,45 @@ private:
       return 0;
     }
 };
+
+/**
+ * 強連結成分分解（SCC）を出力します
+ * @param g
+ * @return
+ */
+vector<vector<int>> makescc(const vector<vector<int>> &g) {
+  const int n = sz(g);
+  vector<int> a(n), used(n);
+  int c = 0;
+  auto dfs1 = [&](auto dfs, int cur) -> void {
+      if(used[cur]) return;
+      used[cur] = 1;
+      for(auto ne: g[cur]) dfs(dfs, ne);
+      a[cur] = c++;
+  };
+  rep(i, n) dfs1(dfs1, i);
+  vector<vector<int>> rg(n);
+  rep(i, n) {
+    for(auto to: g[i]) {
+      rg[to].push_back(i);
+    }
+  }
+  vector<int> b(n);
+  vector<vector<int>> ans;
+  vector<int> tmp;
+  rep(i, n) b[n-a[i]-1] = i, used[i] = 0;
+  auto dfs2 = [&](auto dfs, int cur) -> void {
+      if(used[cur]) return;
+      used[cur] = 1;
+      tmp.push_back(cur);
+      for(auto ne: rg[cur]) dfs(dfs, ne);
+  };
+  for(auto i: b) {
+    dfs2(dfs2, i);
+    if(sz(tmp)) {
+      ans.emplace_back(tmp);
+      tmp.clear();
+    }
+  }
+  return ans;
+}
